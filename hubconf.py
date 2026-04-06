@@ -7,7 +7,7 @@ from eigenplaces_model import eigenplaces_network
 
 AVAILABLE_TRAINED_MODELS = {
     # backbone : list of available fc_output_dim, which is equivalent to descriptors dimensionality
-    "VGG16":     [          512],
+    #"VGG16":     [          512], # Not mirrored on aukilabs fork as we don't use it
     "ResNet18":  [     256, 512],
     "ResNet50":  [128, 256, 512, 1024, 2048],
     "ResNet101": [128, 256, 512, 1024, 2048],
@@ -38,7 +38,7 @@ def get_trained_model(backbone : str = "ResNet50", fc_output_dim : int = 2048) -
     model = eigenplaces_network.GeoLocalizationNet_(backbone, fc_output_dim)
     model.load_state_dict(
         torch.hub.load_state_dict_from_url(
-            f'https://github.com/gmberton/EigenPlaces/releases/download/v1.0/{backbone}_{fc_output_dim}_eigenplaces.pth',
+            f'https://github.com/aukilabs/EigenPlaces/releases/download/v1.0/{backbone}_{fc_output_dim}_eigenplaces.pth',
         map_location=torch.device('cpu'))
     )
     return model
