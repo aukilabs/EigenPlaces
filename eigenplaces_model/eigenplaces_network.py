@@ -53,7 +53,7 @@ def _get_backbone(backbone_name : str) -> Tuple[torch.nn.Module, int]:
     backbone = _get_torchvision_model(backbone_name)
 
     logging.info("Loading pretrained backbone's weights from CosPlace")
-    cosplace = torch.hub.load("gmberton/cosplace", "get_trained_model", backbone=backbone_name, fc_output_dim=512)
+    cosplace = torch.hub.load("aukilabs/cosplace:main", "get_trained_model", trust_repo=True, backbone=backbone_name, fc_output_dim=512)
     new_sd = {k1: v2 for (k1, v1), (k2, v2) in zip(backbone.state_dict().items(), cosplace.state_dict().items())
               if v1.shape == v2.shape}
     backbone.load_state_dict(new_sd, strict=False)
